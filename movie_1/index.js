@@ -1,29 +1,45 @@
+let api_key = "f4e3006f";
+let api = "https://www.omdbapi.com/?i=tt3896198&apikey=f4e3006f";
+let input = document.getElementById("searchinput");
+let container = document.getElementById("container");
 
-let api_kay = " c2f0ba64";
-let api = "http://www.omdbapi.com/?i=tt3896198&apikey=c2f0ba64"
+const getMovie = async () => {
+  let res = await fetch(`${api}&s=${searchinput.value}`);
+  // console.log(res);
+  let data = await res.json();
+  console.log(data);
+  console.log(searchinput.value);
 
-// url = "https://www.omdbapi.com/?i=tt3896198&apikey=c2f0ba64";
+  let x = data.Search;
+  // console.log(x);
+  display(x);
+};
 
+const delay = () => {
+  setTimeout(getMovie, 2000);
+};
 
-const moviedata = async()=> {
-    let res = await fetch (api);
-    let data = await res.json();
-    // console.log(data);
-    console.log(input.value);
-    
+const display = (movies) => {
+  // console.log(movies);
 
-   display()
-    
-}
-moviedata()
+  movies.map((el) => {
+    let div = document.createElement("div");
 
+    let title = document.createElement("h2");
+    console.log(title);
 
-const display = ()=>{
-    let tital = document.createElement("h2")
-    let img = document.createElement("img")
-   
-    
-}
+    title.innerText = el.Title;
 
+    let year = document.createElement("h5");
+    // console.log(year);
 
+    year.innerText = el.Year;
 
+    let img = document.createElement("img");
+    img.src = el.Poster;
+    // console.log(img);
+
+    div.append(img, title, year);
+    container.append(div);
+  });
+};
